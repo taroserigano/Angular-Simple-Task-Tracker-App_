@@ -3,11 +3,13 @@ import { UiService } from '../../services/ui.service';
 import { Subscription } from 'rxjs';
 import { Task } from '../../Task';
 
+// map to the html file
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.css'],
 })
+  
 export class AddTaskComponent implements OnInit {
   @Output() onAddTask: EventEmitter<Task> = new EventEmitter();
   text: string;
@@ -17,6 +19,9 @@ export class AddTaskComponent implements OnInit {
   subscription: Subscription;
 
   constructor(private uiService: UiService) {
+
+    // 1. catch the state inside onToggle()
+    // 2. apply it to showAddTask (boolean)
     this.subscription = this.uiService
       .onToggle()
       .subscribe((value) => (this.showAddTask = value));
@@ -41,6 +46,7 @@ export class AddTaskComponent implements OnInit {
       reminder: this.reminder,
     };
 
+    // add new Task this way 
     this.onAddTask.emit(newTask);
 
     this.text = '';
