@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
   subscription: Subscription;
 
   constructor(private uiService: UiService, private router: Router) {
+
+    // catch the onToggle state, and then add the state to showAddTask 
     this.subscription = this.uiService
       .onToggle()
       .subscribe((value) => (this.showAddTask = value));
@@ -26,10 +28,12 @@ export class HeaderComponent implements OnInit {
      this.subscription.unsubscribe();
    }
 
+  // add the function 
   toggleAddTask() {
     this.uiService.toggleAddTask();
   }
 
+  // is the route "/" ?? - return boolean true or false 
   hasRoute(route: string) {
     return this.router.url === route;
   }
